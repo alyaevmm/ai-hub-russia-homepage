@@ -20,6 +20,7 @@ import {
   Menu,
   X,
   Check,
+  ArrowLeft,
 } from "lucide-react"
 import { useAuth } from "@/lib/auth-context"
 import { useRouter } from "next/navigation"
@@ -163,7 +164,7 @@ export default function ChatPage() {
   if (!user) return null
 
   return (
-    <div className="flex h-screen bg-background pt-20">
+    <div className="flex h-screen bg-background md:pt-20">
       {/* Mobile Overlay */}
       {sidebarOpen && (
         <div 
@@ -241,6 +242,17 @@ export default function ChatPage() {
         {/* Header */}
         <header className="border-b p-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
+            {/* Mobile back button */}
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => router.push('/dashboard')}
+              className="md:hidden"
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </Button>
+            
+            {/* Mobile sidebar toggle */}
             <Button 
               variant="ghost" 
               size="icon" 
@@ -249,6 +261,8 @@ export default function ChatPage() {
             >
               {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
+            
+            {/* Desktop sidebar toggle */}
             <Button 
               variant="ghost" 
               size="icon" 
@@ -257,6 +271,7 @@ export default function ChatPage() {
             >
               {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
+            
             <h1 className="text-lg font-semibold">AI Assistant</h1>
           </div>
           <div className="flex items-center gap-2">

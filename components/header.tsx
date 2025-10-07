@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Menu, X, LogOut } from "lucide-react"
 import Link from "next/link"
@@ -9,9 +10,13 @@ import { useAuth } from "@/lib/auth-context"
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { user, logout } = useAuth()
+  const pathname = usePathname()
+  
+  // Hide header on mobile when in chat page
+  const isChatPage = pathname === '/chat'
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 glass">
+    <header className={`fixed top-0 left-0 right-0 z-50 glass ${isChatPage ? 'hidden md:block' : ''}`}>
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
