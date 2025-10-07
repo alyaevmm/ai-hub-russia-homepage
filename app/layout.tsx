@@ -9,6 +9,7 @@ import "./globals.css"
 export const metadata: Metadata = {
   title: "AI Hub Russia - Доступ ко всем AI в одном месте",
   description: "Российские и международные модели ИИ для любых задач",
+    generator: 'v0.app'
 }
 
 export default function RootLayout({

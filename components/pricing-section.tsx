@@ -32,7 +32,7 @@ const plans = [
       "Кастомные интеграции",
     ],
     cta: "Выбрать тариф",
-    popular: false,
+    popular: true,
   },
 ]
 
@@ -56,7 +56,7 @@ export function PricingSection() {
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2">
                   <span className="gradient-blue-purple px-4 py-1 rounded-full text-sm font-semibold text-white">
-                    Популярный
+                    {plan.name === "Профессиональный" ? "Рекомендуем" : "Популярный"}
                   </span>
                 </div>
               )}

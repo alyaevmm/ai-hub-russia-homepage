@@ -44,7 +44,9 @@ export function Header() {
             >
               {language}
             </button>
-            <Button variant="ghost">Войти</Button>
+            <Button variant="outline" className="bg-muted/30 hover:bg-muted/50">
+              Войти
+            </Button>
             <Button className="gradient-blue-purple">Регистрация</Button>
           </div>
 
@@ -72,7 +74,7 @@ export function Header() {
               </a>
             </nav>
             <div className="flex flex-col gap-2">
-              <Button variant="ghost" className="w-full">
+              <Button variant="outline" className="w-full bg-muted/30 hover:bg-muted/50">
                 Войти
               </Button>
               <Button className="w-full gradient-blue-purple">Регистрация</Button>
