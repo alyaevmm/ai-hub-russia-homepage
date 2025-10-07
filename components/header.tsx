@@ -2,23 +2,26 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Menu, X } from "lucide-react"
+import { Menu, X, LogOut } from "lucide-react"
+import Link from "next/link"
+import { useAuth } from "@/lib/auth-context"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [language, setLanguage] = useState<"RU" | "EN">("RU")
+  const { user, logout } = useAuth()
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg gradient-blue-purple flex items-center justify-center">
               <span className="text-white font-bold text-lg">AI</span>
             </div>
             <span className="text-xl font-bold text-foreground">AI Hub Russia</span>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
@@ -44,10 +47,30 @@ export function Header() {
             >
               {language}
             </button>
-            <Button variant="outline" className="bg-muted/30 hover:bg-muted/50">
-              Войти
-            </Button>
-            <Button className="gradient-blue-purple">Регистрация</Button>
+            {user ? (
+              <>
+                <Link href="/dashboard">
+                  <Button variant="outline" className="bg-muted/30 hover:bg-muted/50">
+                    Дашборд
+                  </Button>
+                </Link>
+                <Button variant="outline" className="bg-muted/30 hover:bg-muted/50" onClick={logout}>
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Выйти
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link href="/login">
+                  <Button variant="outline" className="bg-muted/30 hover:bg-muted/50">
+                    Войти
+                  </Button>
+                </Link>
+                <Link href="/register">
+                  <Button className="gradient-blue-purple">Регистрация</Button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -74,10 +97,30 @@ export function Header() {
               </a>
             </nav>
             <div className="flex flex-col gap-2">
-              <Button variant="outline" className="w-full bg-muted/30 hover:bg-muted/50">
-                Войти
-              </Button>
-              <Button className="w-full gradient-blue-purple">Регистрация</Button>
+              {user ? (
+                <>
+                  <Link href="/dashboard">
+                    <Button variant="outline" className="w-full bg-muted/30 hover:bg-muted/50">
+                      Дашборд
+                    </Button>
+                  </Link>
+                  <Button variant="outline" className="w-full bg-muted/30 hover:bg-muted/50" onClick={logout}>
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Выйти
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Link href="/login">
+                    <Button variant="outline" className="w-full bg-muted/30 hover:bg-muted/50">
+                      Войти
+                    </Button>
+                  </Link>
+                  <Link href="/register">
+                    <Button className="w-full gradient-blue-purple">Регистрация</Button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         )}

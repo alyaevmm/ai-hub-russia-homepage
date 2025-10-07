@@ -6,12 +6,13 @@ import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import { AuthProvider } from "@/lib/auth-context"
 import "./globals.css"
 
 export const metadata: Metadata = {
   title: "AI Hub Russia - Доступ ко всем AI в одном месте",
   description: "Российские и международные модели ИИ для любых задач",
-    generator: 'v0.app'
+  generator: "v0.app",
 }
 
 export default function RootLayout({
@@ -22,9 +23,11 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
-        <Header />
-        <Suspense fallback={null}>{children}</Suspense>
-        <Footer />
+        <AuthProvider>
+          <Header />
+          <Suspense fallback={null}>{children}</Suspense>
+          <Footer />
+        </AuthProvider>
         <Analytics />
       </body>
     </html>
