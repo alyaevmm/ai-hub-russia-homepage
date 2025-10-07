@@ -22,7 +22,7 @@ const MOCK_DATA = {
 export default function DashboardPage() {
   const { user, isLoading } = useAuth()
   const router = useRouter()
-  const [hasChats, setHasChats] = useState(true) // Toggle for demo: true shows recent chats, false shows empty state
+  const [hasChats, setHasChats] = useState(true)
 
   useEffect(() => {
     if (!isLoading && !user) {
@@ -52,12 +52,18 @@ export default function DashboardPage() {
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <Card className="p-6 flex flex-col items-center justify-center gap-3 hover:shadow-lg transition-all cursor-pointer group">
+            <Card
+              className="p-6 flex flex-col items-center justify-center gap-3 hover:shadow-lg transition-all cursor-pointer group"
+              onClick={() => router.push("/chat")}
+            >
               <MessageSquarePlus className="w-10 h-10 text-primary group-hover:scale-110 transition-transform" />
               <span className="font-semibold text-center">Новый чат</span>
             </Card>
 
-            <Card className="p-6 flex flex-col items-center justify-center gap-3 hover:shadow-lg transition-all cursor-pointer group">
+            <Card
+              className="p-6 flex flex-col items-center justify-center gap-3 hover:shadow-lg transition-all cursor-pointer group"
+              onClick={() => router.push("/chat")}
+            >
               <History className="w-10 h-10 text-primary group-hover:scale-110 transition-transform" />
               <span className="font-semibold text-center">История чатов</span>
             </Card>
@@ -105,6 +111,7 @@ export default function DashboardPage() {
                   <div
                     key={chat.id}
                     className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer"
+                    onClick={() => router.push("/chat")}
                   >
                     <MessageSquarePlus className="w-5 h-5 text-muted-foreground flex-shrink-0" />
                     <div className="flex-1 min-w-0">
@@ -125,7 +132,7 @@ export default function DashboardPage() {
               <p className="text-muted-foreground mb-6 max-w-md mx-auto">
                 Создайте свой первый чат и откройте возможности искусственного интеллекта
               </p>
-              <Button size="lg" className="bg-primary hover:bg-primary/90">
+              <Button size="lg" className="bg-primary hover:bg-primary/90" onClick={() => router.push("/chat")}>
                 Создать первый чат
               </Button>
             </Card>
