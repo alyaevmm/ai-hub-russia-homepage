@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import { useAuth } from "@/lib/auth-context"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { MessageSquarePlus, History, CreditCard, Settings, Bot, Clock } from "lucide-react"
+import { MessageSquarePlus, CreditCard, Settings, Bot, Clock } from "lucide-react"
 
 const MOCK_DATA = {
   tokensUsed: 1250,
@@ -51,21 +51,13 @@ export default function DashboardPage() {
             <p className="text-lg text-muted-foreground">Ваш персональный AI-ассистент</p>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card
               className="p-6 flex flex-col items-center justify-center gap-3 hover:shadow-lg transition-all cursor-pointer group"
               onClick={() => router.push("/chat")}
             >
               <MessageSquarePlus className="w-10 h-10 text-primary group-hover:scale-110 transition-transform" />
               <span className="font-semibold text-center">Новый чат</span>
-            </Card>
-
-            <Card
-              className="p-6 flex flex-col items-center justify-center gap-3 hover:shadow-lg transition-all cursor-pointer group"
-              onClick={() => router.push("/chat")}
-            >
-              <History className="w-10 h-10 text-primary group-hover:scale-110 transition-transform" />
-              <span className="font-semibold text-center">История чатов</span>
             </Card>
 
             <Card className="p-6 flex flex-col items-center justify-center gap-3 hover:shadow-lg transition-all cursor-pointer group">

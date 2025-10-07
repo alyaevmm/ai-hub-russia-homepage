@@ -45,7 +45,7 @@ export default function ChatPage() {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState("")
   const [isGenerating, setIsGenerating] = useState(false)
-  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState("")
   const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -88,6 +88,21 @@ export default function ChatPage() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [messages])
+
+  // Auto-open sidebar on desktop, close on mobile
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setSidebarOpen(true)
+      } else {
+        setSidebarOpen(false)
+      }
+    }
+
+    handleResize() // Set initial state
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const handleSend = async () => {
     if (!input.trim() || isGenerating) return
@@ -148,13 +163,22 @@ export default function ChatPage() {
   if (!user) return null
 
   return (
-    <div className="flex h-screen bg-background">
+    <div className="flex h-screen bg-background pt-20">
+      {/* Mobile Overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+      
       {/* Sidebar */}
       <aside
         className={cn(
           "flex flex-col border-r bg-card transition-all duration-300",
           sidebarOpen ? "w-64" : "w-0",
           "md:relative absolute inset-y-0 left-0 z-50",
+          !sidebarOpen && "md:w-0"
         )}
       >
         <div className={cn("flex flex-col h-full", !sidebarOpen && "hidden")}>
@@ -217,7 +241,20 @@ export default function ChatPage() {
         {/* Header */}
         <header className="border-b p-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(!sidebarOpen)}>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="md:hidden"
+            >
+              {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="hidden md:flex"
+            >
               {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
             <h1 className="text-lg font-semibold">AI Assistant</h1>
