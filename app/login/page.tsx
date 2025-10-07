@@ -41,6 +41,11 @@ export default function LoginPage() {
           <div className="text-center space-y-2">
             <h1 className="text-3xl font-bold text-foreground">Вход</h1>
             <p className="text-muted-foreground">Войдите в свой аккаунт AI Hub Russia</p>
+            <div className="bg-muted/30 rounded-lg p-4 text-sm">
+              <p className="font-medium text-foreground mb-2">Тестовый аккаунт:</p>
+              <p className="text-muted-foreground">Email: test@example.com</p>
+              <p className="text-muted-foreground">Пароль: password123</p>
+            </div>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">

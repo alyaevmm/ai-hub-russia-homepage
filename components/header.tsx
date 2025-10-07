@@ -8,7 +8,6 @@ import { useAuth } from "@/lib/auth-context"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [language, setLanguage] = useState<"RU" | "EN">("RU")
   const { user, logout } = useAuth()
 
   return (
@@ -41,12 +40,6 @@ export function Header() {
 
           {/* Right Side Actions */}
           <div className="hidden md:flex items-center gap-4">
-            <button
-              onClick={() => setLanguage(language === "RU" ? "EN" : "RU")}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {language}
-            </button>
             {user ? (
               <>
                 <Link href="/dashboard">

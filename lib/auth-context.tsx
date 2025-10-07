@@ -24,6 +24,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const router = useRouter()
 
   useEffect(() => {
+    // Initialize test user if no users exist
+    const users = JSON.parse(localStorage.getItem("users") || "[]")
+    if (users.length === 0) {
+      const testUser = {
+        email: "test@example.com",
+        password: "password123",
+        name: "Тестовый пользователь"
+      }
+      localStorage.setItem("users", JSON.stringify([testUser]))
+    }
+
     // Check if user is logged in on mount
     const storedUser = localStorage.getItem("user")
     if (storedUser) {
