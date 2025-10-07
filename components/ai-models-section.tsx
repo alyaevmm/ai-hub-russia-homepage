@@ -71,7 +71,7 @@ export function AIModelsSection() {
                   </div>
                   <Badge
                     variant={model.status === "online" ? "default" : "secondary"}
-                    className="bg-green-500/20 text-green-400 border-green-500/30"
+                    className="bg-green-500/20 text-green-400 border-green-500/30 hover:bg-green-500/40 hover:border-green-400/50 hover:scale-105 transition-all duration-200 cursor-pointer"
                   >
                     <div className="w-2 h-2 rounded-full bg-green-400 mr-2 animate-pulse" />
                     Активен
